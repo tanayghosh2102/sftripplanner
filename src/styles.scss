@@ -1,1 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+:root {
+    --themeColor: #8d42f5;
+}
+
+html, body {
+    height: 100%;
+
+    .no-padding {
+        padding: 0px;
+    }
+    .full-height {
+        height: 100%;
+    }
+    .standard-margin-1 {
+        margin: 1vw 0vw;
+    }
+    .btn-theme-color {
+        color: var(--themeColor);
+        border-color: var(--themeColor);
+    }
+    .btn-theme-color:hover {
+        background-color: var(--themeColor);
+        color: white;
+    }
+    .btn-theme-color:disabled {
+        color: var(--themeColor);
+        background-color: transparent;
+        border-color: var(--themeColor);
+    }
+    .btn-theme-color:hover:disabled {
+        color: var(--themeColor);
+        background-color: transparent;
+        border-color: var(--themeColor);
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

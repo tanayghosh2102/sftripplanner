@@ -1,0 +1,4 @@
+<div class="location-card" *ngFor="let wp of currentFilmWaypoints">
+    <div class="location-label" (click)="highlightMarker(wp)">{{ wp.filmAddress }}</div>
+    <div class="location-add" (click)="addWaypointToItinerary(wp)"><fa-icon [icon]="faPlus"></fa-icon></div>
+</div>

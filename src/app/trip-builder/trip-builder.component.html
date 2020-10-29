@@ -1,0 +1,58 @@
+<div class="container-fluid no-padding">
+    <div class="row standard-margin-1">
+        <div class="col-md-2">
+            <button class="btn btn-outline-primary btn-theme-color" type="button" id="button-addon1" (click)="goToHome()"><span class="btn-label"><fa-icon [icon]="faHome"></fa-icon></span></button>
+        </div>
+        <div class="col-md-10">
+            <div class="input-group mb-3">
+                <input type="text"
+                        class="form-control" 
+                        placeholder="Film name" 
+                        aria-label="FilmName"
+                        matInput 
+                        [formControl]="customFormCtrl"
+                        [matAutocomplete]="auto"
+                        aria-describedby="basic-addon1"
+                        (keydown.enter)="getAllLocations()">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of options" (click)="getAllLocations()" [value]="option">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary btn-theme-color" type="button" id="button-addon2"><span class="btn-label"><fa-icon [icon]="faSearch"></fa-icon></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row standard-margin-1">
+        <div class="col-md-12 location-layout" *ngIf="selectedFilmLocations.length > 0">
+            <h4 class="fl-header-label">Film <em>{{ filmName }}</em> &nbsp;Location:</h4>
+            <div class="col-md-12 location-list">
+                <app-location-card (addWPEvent)="updateItineraryInfo($event)"></app-location-card>
+            </div>
+        </div>
+    </div>
+    <div class="row standard-margin-1">
+        <div class="col-md-12 itinerary-layout">
+            <div class="col-md-12">
+                <h4 class="fl-header-label">{{itineraryName}}:</h4>
+            </div>
+            <div class="col-md-12" *ngIf="itineraryInfo.length < 1"><i>No location added to the itinerary...</i></div>
+            <div class="col-md-12 itinerary-list" *ngIf="itineraryInfo.length > 0" [ngClass]="{ 'extended' : selectedFilmLocations.length === 0 }">
+                <div cdkDropList class="itinerary-drop-list" (cdkDropListDropped)="drop($event)">
+                    <div class="itinerary-box" *ngFor="let wp of itineraryInfo" cdkDrag>
+                        <div class="itinerary-info">
+                        <div class="movie-name"><b>Title: </b>{{wp.filmTitle}}</div>
+                            <div class="address"><b>Address: </b>{{wp.filmAddress}}</div>
+                        </div>
+                        <div class="itinerary-action"><span class="btn-label" (click)="removeLocation(wp)"><fa-icon [icon]="faTrashAlt"></fa-icon></span></div>
+                    </div>
+                </div>                  
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer" *ngIf="itineraryInfo.length > 0">
+        <button class="btn btn-outline-primary btn-theme-color" type="button" (click)="saveItinerary()" [disabled]="disableSaveButton()">Save</button>
+    </div>
+</div>

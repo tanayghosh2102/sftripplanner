@@ -1,0 +1,118 @@
+$labelColor: #495057;
+
+.home-layout {
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+    .header-layout {
+        flex: 2;
+        display: flex;
+        justify-content: center;
+        background-color: var(--themeColor);
+        h3 {
+            margin: 0;
+            padding: 0;
+            align-self: center;
+            color: white;
+            font-size: 4vh;
+        }
+    }
+    .init-itinerary-layout {
+        flex: 13;
+        display: flex;
+        flex-flow: column;
+        .init-itinerary {
+            flex: 4;
+            padding: 3vh 25vw;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            .build-itinerary {
+                text-align: center;
+                padding: 2vh;
+            }
+        }
+        .itinerary-description {
+            flex: 2;
+            display: flex;
+            padding-top: 5vh;
+            .desc-layout {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                .desc-card {
+                    display: flex;
+                    flex-flow: column;
+                    border-radius: 4px;
+                    border: 1px solid $labelColor;
+                    width: 23vw;
+                    .desc-card-title {
+                        flex: 1;
+                        padding: 2vh;
+                        background-color: var(--themeColor);
+                        color: white;
+                        font-size: 4vh;
+                        display: flex;
+                        justify-content: center;
+                        margin-bottom: 2vh;
+                        font-weight: 400;
+                    }
+                    .desc-card-content {
+                        flex: 2;
+                        font-size: 3vh;
+                        font-weight: 100;
+                        align-self: center;
+                        color: $labelColor;
+                        padding: 2vh;
+                    }
+                }
+            }
+        }
+    }
+    h3.main-label{
+        font-size: 3vh;
+        font-weight: 400;
+        margin: 0 1vw;
+        em {
+            font-weight: 100;
+        }
+    }
+    .itinerary-list-layout {
+        flex: 9;
+        overflow-y: scroll;
+        display: flex;
+        flex-flow: wrap;
+        .saved-itinerary-card {
+            box-shadow: 0px 0px 1px 1px #d2d2d2;
+            width: 20vw;
+            height: 13vh;
+            border-radius: 1vh;
+            margin: 2vh;
+            display: flex;
+            color: $labelColor;
+            cursor: pointer;
+            .itinerary-card-action {
+                flex: 1;
+                align-self: center;
+                text-align: center;
+            }
+            .itinerary-card-desc {
+                flex: 5;
+                display: flex;
+                padding: 2vh;
+                flex-flow: column;
+                .itinerary-card-title {
+                    flex: 1;
+                    flex-flow: column-reverse;
+                    font-size: 3vh;
+                    font-weight: 500;
+                    display: flex;
+                }
+            }
+            .itinerary-card-body {
+                flex: 1
+            }
+        }
+    }
+}
+

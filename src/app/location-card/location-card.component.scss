@@ -1,0 +1,20 @@
+.location-card {
+    display: flex;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    margin: 5px 0px;
+    box-shadow: 0px 0px 1px 1px #ececec;
+    .location-label {
+        flex: 10;
+        align-self: center;
+        margin: 1vw;
+    }
+    .location-add {
+        flex: 2;
+        align-self: center;
+        text-align: center;
+        padding: 1vw;
+        cursor: pointer;
+    }
+}
+

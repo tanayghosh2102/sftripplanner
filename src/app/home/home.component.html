@@ -1,0 +1,36 @@
+<div class="container-fluid no-padding">
+    <div class="home-layout">
+        <div class="header-layout"><h3>{{ headerLabel }}</h3></div>
+        <div class="init-itinerary-layout">
+            <div class="itinerary-description">
+                <div class="desc-layout" *ngFor="let desc of descriptions">
+                    <div class="desc-card">
+                        <div class="desc-card-title"><fa-icon [icon]="desc.icon"></fa-icon></div>
+                        <div class="desc-card-content">{{ desc.description }}</div>
+                    </div>
+                </div>
+            </div> 
+            <div class="init-itinerary">
+                <input type="text" class="form-control form-control-md" id="enterItineraryName" [formControl]="itineraryNameFrmCtrl" placeholder="Enter Itinerary Name">
+                <div class="build-itinerary">
+                    <button class="btn btn-outline-primary btn-theme-color" type="button" (click)="buildItinerary()">Build Itinerary</button>
+                </div>
+            </div>                   
+        </div>
+        <h3 class="main-label">Saved Itineraries: <em>(Click on the cards to view/edit itinerary.)</em></h3>
+        <div class="itinerary-list-layout">
+            <div class="saved-itinerary-card" *ngFor="let itineraryObj of lsItineraryList" (click)="editItinerary(itineraryObj)">
+                <div class="itinerary-card-desc">
+                    <div class="itinerary-card-title">
+                        {{ itineraryObj.itineraryName }}
+                    </div>
+                    <div class="itinerary-card-body">
+                        {{ itineraryObj.lastEdited | date:'medium'}}
+                    </div>
+                </div>
+                <div class="itinerary-card-action"><fa-icon [icon]="faEye"></fa-icon></div>
+                
+            </div>
+        </div>
+    </div>
+</div>
