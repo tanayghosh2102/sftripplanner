@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import { Config } from '../configuration';
 import { FilmLocationService } from '../film-location.service';
 import { ItineraryService } from '../itinerary.service';
@@ -13,34 +13,38 @@ import { Waypoint } from '../waypoint';
 })
 export class LocationCardComponent implements OnInit {
 
-  faPlus = faPlus;
+  @Input() locations: Waypoint[]; //Input property for the component.
+  faPlus: IconDefinition; // font awesome icon.
+
+  @Output() addWPEvent: EventEmitter<string> = new EventEmitter<string>(); // Event emitter to notify parent component about addition of location in the itinerary.
 
   constructor(private filmLocationService: FilmLocationService, private itineraryService: ItineraryService) { }
 
-  currentFilmWaypoints: Waypoint[];
-  @Input() filmName: string;
-  @Output() addWPEvent = new EventEmitter<string>();
-
+  /** Initializes all the instance variables and sets up all the data that is required for the Component. */
   ngOnInit(): void {
-    this.currentFilmWaypoints = this.filmLocationService.currentFilmWaypoints;
+    this.faPlus = faPlus;
+    console.log(this.locations);
   }
 
+  /** Clears animations of all markers available on the map. */
   clearMarkerAnimation() {
-    this.currentFilmWaypoints.forEach(value => {
+    this.locations.forEach(value => {
       value.mapObj.markerObj.setAnimation(null);
     })
   }
 
+  /** Highlights the marker for the clicked Waypoint (location) on the map. */
   highlightMarker(wp: Waypoint) {
     this.clearMarkerAnimation();
     wp.mapObj.markerObj.setAnimation(google.maps.Animation.BOUNCE);
   }
 
+  /** Adds a new location to the itinerary and updates the map accordingly. */
   addWaypointToItinerary(wp: Waypoint) {
     wp.mapObj.markerObj.setMap(null);
     this.removeFromLocationList(wp);
     if(!this.checkIfWaypointExists(wp)) {
-      if(this.itineraryService.itinerary.itineraryStatus === Config.IT_STATUS_SAVED) {
+      if(this.itineraryService.itinerary.itineraryStatus === Config.IT_STATUS_SAVED) { // Checks to see the status of the itinerary to avoid duplicate itinerary objects in the storage object.
         this.itineraryService.itinerary.itineraryStatus = Config.IT_STATUS_EDIT;
       }
       this.itineraryService.itinerary.itineraryInfo.push(wp);
@@ -50,6 +54,7 @@ export class LocationCardComponent implements OnInit {
     }
   }
 
+  /** Removes the location received in the parameter from the location list. */
   removeFromLocationList(wp: Waypoint) {
     let length = this.filmLocationService.currentFilmWaypoints.length;
     for(let i = 0; i < length; i++) {
@@ -60,6 +65,7 @@ export class LocationCardComponent implements OnInit {
     }
   }
 
+  /** Checks if location exists in the itinerary. */
   checkIfWaypointExists(wp: Waypoint): boolean {
     let flag = false;
     for(let waypoint of this.itineraryService.itinerary.itineraryInfo) {

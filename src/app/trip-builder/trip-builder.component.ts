@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
@@ -19,61 +19,77 @@ import { ItineraryService } from '../itinerary.service';
   styleUrls: ['./trip-builder.component.scss']
 })
 export class TripBuilderComponent implements OnInit {
-  filmName: string;
-  itineraryName: string;
-  options: string[];
-  films: string[];
-  filmsLocations: FilmLocation[];
-  selectedFilmLocations: Waypoint[];
-  itineraryInfo: Waypoint[];
-  filteredOptions: Observable<string[]>;
-  customFormCtrl: FormControl;
-  faHome: IconDefinition;
-  faSearch: IconDefinition;
-  faTrashAlt: IconDefinition;
-  faMapMarker: IconDefinition;
+  filmName: string; // Bound to UI element to display selected Film name.
+  itineraryName: string; // Bound to the UI elemnt to display name of the itinerary
+  options: string[]; // Bound to UI to the auto complete field to display all the movies.
+  films: string[]; // Used to maintain all the films names.
+  filmsLocations: FilmLocation[]; // Used to store the data recieved from the URL.
+  selectedFilmLocations: Waypoint[]; // Bound to UI, used to store the locations of the film selected.
+  itineraryInfo: Waypoint[]; // Bound to UI, used to store the locations added to the itinerary.
+  customFormCtrl: FormControl; // From control for the auto complete field.
+  faHome: IconDefinition; // Fontawesome Icon definition used in the UI
+  faSearch: IconDefinition; // Fontawesome Icon definition used in the UI
+  faTrashAlt: IconDefinition; // Fontawesome Icon definition used in the UI
+  faMapMarker: IconDefinition; // Fontawesome Icon definition used in the UI
 
   constructor(private filmLocationService:FilmLocationService, private mapService: MapService, private itineraryService:ItineraryService, private router: Router) { }
 
+  /** Initializes all the instance variables and sets up all the data that is required for the Component. */
   ngOnInit(): void {
     if(!this.itineraryService.itinerary) {
       this.router.navigate(['/home']);
+    } else {
+      this.customFormCtrl = new FormControl();
+      this.faHome = faHome;
+      this.faSearch = faSearch;
+      this.faTrashAlt = faTrashAlt;
+      this.faMapMarker = faMapMarker;
+      this.itineraryName = this.itineraryService.itinerary.itineraryName;
+      this.selectedFilmLocations = [];
+      this.itineraryInfo = this.itineraryService.itinerary.itineraryInfo;
+      this.filmLocationService.getAllFilmLocations().subscribe((data) => {
+        this.filmsLocations = data;
+        let filmList = new Set<string>();
+        for(let filmLoc of data) {
+          filmList.add(filmLoc.title);
+        }
+        this.films = Array.from(filmList);
+      });
+      this.customFormCtrl.valueChanges.subscribe(entry => {
+        this.options = this._filter(entry);
+      });
     }
-    this.customFormCtrl = new FormControl();
-    this.faHome = faHome;
-    this.faSearch = faSearch;
-    this.faTrashAlt = faTrashAlt;
-    this.faMapMarker = faMapMarker;
-    this.itineraryName = this.itineraryService.itinerary.itineraryName;
-    this.selectedFilmLocations = [];
-    this.itineraryInfo = this.itineraryService.itinerary.itineraryInfo;
-    this.filmLocationService.getAllFilmLocations().subscribe((data) => {
-      this.filmsLocations = data;
-      let filmList = new Set<string>();
-      for(let filmLoc of data) {
-        filmList.add(filmLoc.title);
-      }
-      this.films = Array.from(filmList);
-    });
-    this.customFormCtrl.valueChanges.subscribe(entry => {
-      this.options = this._filter(entry);
-    });
   }
 
+  /** Filter the films based on the text entered in the Film name input field. */
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.films.filter(option => option.toLowerCase().includes(filterValue));
   }
 
+  /** Clears all markers on the Map. */
+  clearAllMarkersOnMap() {
+    this.filmLocationService.currentFilmWaypoints.forEach((val) => {
+      val.mapObj.markerObj.setMap(null);
+    })
+  }
+
+  /** Gets all location for the film that was selected and displays them on the trip builder panel and the map. */
   getAllLocations() {
+    this.clearAllMarkersOnMap();
     this.filmName = this.customFormCtrl.value;
+    this.filmLocationService.currentFilmWaypoints = [];
+    // All locations for the entered film.
     let filmObjs = this.filmsLocations.filter(fl => this.customFormCtrl.value === fl.title);
     if(filmObjs.length > 0) {
-      let isAddrAvailable = filmObjs.reduce((acc, pilot) => { return acc && pilot.hasOwnProperty('locations'); }, true);
-      if(isAddrAvailable) {
+    // Checks if the film objects has a 'location' property.
+    filmObjs = filmObjs.filter(fl => fl.hasOwnProperty('locations'));
+      if(filmObjs.length > 0) {
+        // Retrieving only addresses form the objects.
         let selectedAddresses = filmObjs.map(data => data.locations);
+        // Removing duplicate addresses.
         selectedAddresses = [...new Set(selectedAddresses)];
+        // Waypoint object created for all addresses.
         for(let selectedAddress of selectedAddresses) {
           let wp = new Waypoint();
           wp.filmTitle = this.filmName;
@@ -82,8 +98,9 @@ export class TripBuilderComponent implements OnInit {
           this.filmLocationService.currentFilmWaypoints.push(wp);
         }
         this.selectedFilmLocations = this.filmLocationService.currentFilmWaypoints;
+        // Create a marker on the map for all the waypoints.
         for(let loc of this.filmLocationService.currentFilmWaypoints) {
-          this.mapService.createWaypointOnMap(loc, Config.MARKER.COLOR.RED);
+          this.mapService.createWaypointOnMap(loc, Config.MARKER.COLOR.BLUE);
         }
       } else {
         alert(Config.LABELS.ERROR.NO_LOCATIONS_FOUND);
@@ -91,11 +108,13 @@ export class TripBuilderComponent implements OnInit {
     }
   }
 
+  /** Drag-drop event listener for the DragDrop Itinerary List. */
   drop(event: CdkDragDrop<Waypoint[]>) {
     moveItemInArray(this.itineraryInfo, event.previousIndex, event.currentIndex);
     this.updateItineraryInfo(Config.EVENTS.REORDER_WAYPOINT);
   }
 
+  /** Updates the itinerary information in the service and the map. */
   updateItineraryInfo(event) {
     if(event === Config.EVENTS.ADD_WAYPOINT) {
       this.itineraryInfo = this.itineraryService.itinerary.itineraryInfo;
@@ -105,14 +124,17 @@ export class TripBuilderComponent implements OnInit {
     }
   }
 
+  /** Click listener for save itinerary button */
   saveItinerary() {
     this.itineraryService.saveItinerary();
   }
 
+  /** Click Listener for the home button. */
   goToHome() {
     this.router.navigate(['/home']);
   }
 
+  /** Removes a location from the service object and the map. */
   removeLocation(wp: Waypoint) {
     if(this.itineraryService.itinerary.itineraryStatus === Config.IT_STATUS_SAVED) {
       this.itineraryService.itinerary.itineraryStatus = Config.IT_STATUS_EDIT;
@@ -127,12 +149,13 @@ export class TripBuilderComponent implements OnInit {
     if(this.selectedFilmLocations.length > 0) {
       this.selectedFilmLocations.push(wp);
       this.selectedFilmLocations.forEach(val => {
-        this.mapService.createWaypointOnMap(val, Config.MARKER.COLOR.RED);
+        this.mapService.createWaypointOnMap(val, Config.MARKER.COLOR.BLUE);
       });
     }
     this.mapService.createMapForItinerary(this.itineraryInfo);
   }
 
+  /** Checks if the save itinerary button should be disabled. */
   disableSaveButton() {
     return this.itineraryService.itinerary.itineraryStatus === Config.IT_STATUS_SAVED;
   }

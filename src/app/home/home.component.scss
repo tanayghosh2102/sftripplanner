@@ -82,6 +82,9 @@ $labelColor: #495057;
         overflow-y: scroll;
         display: flex;
         flex-flow: wrap;
+        em {
+            margin: 2vh;
+        }
         .saved-itinerary-card {
             box-shadow: 0px 0px 1px 1px #d2d2d2;
             width: 20vw;

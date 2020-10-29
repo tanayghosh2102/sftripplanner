@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { faPray } from '@fortawesome/free-solid-svg-icons';
+
 import { Config } from './configuration';
 import { Waypoint } from './waypoint';
+import { FilmLocationService } from './film-location.service';
+import { faWpbeginner } from '@fortawesome/free-brands-svg-icons';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class MapService {
   mapMarkers: google.maps.Marker[] = [];
 
 
-  constructor() { }
+  constructor(private filmLocationService: FilmLocationService) { }
 
   initMap(mapElement: Element) {
     // Initialize the Google Map object.
@@ -31,7 +33,7 @@ export class MapService {
 
   createWaypointOnMap(loc: Waypoint, icon: string) {
     this.geocoder.geocode({ 'address': loc.filmAddress + ", " + Config.LOCATION}, (results, status) => {
-      if(status = google.maps.GeocoderStatus.OK) {
+      if(status === google.maps.GeocoderStatus.OK && results) {
         this.map.setCenter(results[0].geometry.location);
         var marker = new google.maps.Marker({
           icon: Config.MARKER.URL + icon,
@@ -46,6 +48,13 @@ export class MapService {
           markerObj: marker
         }
         loc.mapObj = mapObj;
+      } else {
+        for(let i = 0; i < this.filmLocationService.currentFilmWaypoints.length; i++) {
+          let wp = this.filmLocationService.currentFilmWaypoints[i];
+          if(loc.filmTitle === wp.filmTitle && loc.filmAddress === wp.filmAddress) {
+            this.filmLocationService.currentFilmWaypoints.splice(i,1);
+          }
+        }
       }
     });
   }

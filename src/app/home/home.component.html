@@ -19,6 +19,7 @@
         </div>
         <h3 class="main-label">Saved Itineraries: <em>(Click on the cards to view/edit itinerary.)</em></h3>
         <div class="itinerary-list-layout">
+            <em *ngIf="lsItineraryList.length === 0">No itineraries saved. Create a new itinerary by entering a name and clicking "Build Itinerary".</em>
             <div class="saved-itinerary-card" *ngFor="let itineraryObj of lsItineraryList" (click)="editItinerary(itineraryObj)">
                 <div class="itinerary-card-desc">
                     <div class="itinerary-card-title">

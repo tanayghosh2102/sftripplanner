@@ -20,7 +20,7 @@
                     </mat-option>
                   </mat-autocomplete>
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary btn-theme-color" type="button" id="button-addon2"><span class="btn-label"><fa-icon [icon]="faSearch"></fa-icon></span></button>
+                    <button class="btn btn-outline-secondary btn-theme-color" type="button" id="button-addon2" (click)="getAllLocations()"><span class="btn-label"><fa-icon [icon]="faSearch"></fa-icon></span></button>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="col-md-12 location-layout" *ngIf="selectedFilmLocations.length > 0">
             <h4 class="fl-header-label">Film <em>{{ filmName }}</em> &nbsp;Location:</h4>
             <div class="col-md-12 location-list">
-                <app-location-card (addWPEvent)="updateItineraryInfo($event)"></app-location-card>
+                <app-location-card (addWPEvent)="updateItineraryInfo($event)" [locations]="selectedFilmLocations"></app-location-card>
             </div>
         </div>
     </div>

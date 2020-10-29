@@ -10,7 +10,8 @@ export const Config = {
       FETCH_LOCATION: "fetch_location",
       ADD_WAYPOINT: "add_waypoint",
       REMOVE_WAYPOINT: "remove_waypoint",
-      REORDER_WAYPOINT: "reorder_waypint"
+      REORDER_WAYPOINT: "reorder_waypint",
+      NEW_FILM_SELECTED: "new_film_selected"
     },
     MAP_PROPERTIES: {
       zoom: 13,
@@ -30,7 +31,8 @@ export const Config = {
       ERROR: {
         ITINERARY_NAME_EMPTY: 'Enter a name for the itinerary.',
         NO_LOCATIONS_FOUND: 'No locations found in San Francisco.',
-        NO_STORAGE_SUPPORT: 'No Local Storage Support.'
+        NO_STORAGE_SUPPORT: 'No Local Storage Support.',
+        DUPLICATE_NAME: 'An itinerary with the entered name already exists in storage.'
       }
     },
     DESC: [
