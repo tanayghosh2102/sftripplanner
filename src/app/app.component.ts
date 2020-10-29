@@ -12,7 +12,9 @@ export class AppComponent implements OnInit {
 
   constructor(private itineraryService: ItineraryService) {}
 
+  /** Initializes all the instance variables and sets up all the data that is required for the Component. */
   ngOnInit():void {
+    // Gets the persisted object from local storage.
     this.itineraryService.initItineraryLocalStorage();
   }
 

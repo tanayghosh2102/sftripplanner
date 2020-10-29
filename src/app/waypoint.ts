@@ -1,3 +1,4 @@
+/** Waypoint Class */
 export class Waypoint {
     filmTitle: string;
     filmAddress: string;

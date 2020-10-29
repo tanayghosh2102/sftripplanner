@@ -1,3 +1,4 @@
+/** Structure of the object received from the URL */
 export interface FilmLocation {
     title: string;
     release_year: string;

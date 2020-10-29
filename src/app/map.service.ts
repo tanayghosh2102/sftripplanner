@@ -9,16 +9,16 @@ import { faWpbeginner } from '@fortawesome/free-brands-svg-icons';
   providedIn: 'root'
 })
 export class MapService {
-  map: google.maps.Map;
-  geocoder = new google.maps.Geocoder();
-  directionsService = new google.maps.DirectionsService();
-  directionsRenderer = new google.maps.DirectionsRenderer({preserveViewport: true});
-  directionRequest: google.maps.DirectionsRequest = {};
-  mapMarkers: google.maps.Marker[] = [];
+  map: google.maps.Map; // Google Map API object. Used to create a map for the view.
+  geocoder = new google.maps.Geocoder(); // Google Geocoder API object. Used to interact with the map object.
+  directionsService = new google.maps.DirectionsService(); // Google Directions API class to generate directions.
+  directionsRenderer = new google.maps.DirectionsRenderer({preserveViewport: true}); // Google Directions API class to render directions on map.
+  directionRequest: google.maps.DirectionsRequest = {}; // Google Directions API interface for the request options object for the direction renderer.
 
 
   constructor(private filmLocationService: FilmLocationService) { }
 
+  /** Initialize and render the google map on the view. */
   initMap(mapElement: Element) {
     // Initialize the Google Map object.
     this.map = new google.maps.Map(mapElement, Config.MAP_PROPERTIES);
@@ -31,6 +31,7 @@ export class MapService {
     });
   }
 
+  /** Creates a Waypoint and renders it on the map. */
   createWaypointOnMap(loc: Waypoint, icon: string) {
     this.geocoder.geocode({ 'address': loc.filmAddress + ", " + Config.LOCATION}, (results, status) => {
       if(status === google.maps.GeocoderStatus.OK && results) {
@@ -42,7 +43,6 @@ export class MapService {
           title: results[0].formatted_address,
           animation: google.maps.Animation.DROP
         });
-        this.mapMarkers.push(marker);
         let mapObj = {
           geocodeObj: results[0],
           markerObj: marker
@@ -59,6 +59,7 @@ export class MapService {
     });
   }
 
+  /** Creates and renders the trip direction on the map. */
   createMapForItinerary(itineraryInfo: Waypoint[]) {
     if(itineraryInfo.length > 0) {
       this.directionsRenderer.setMap(this.map);
@@ -71,6 +72,7 @@ export class MapService {
     }
   }
 
+  /** Creates the DirectionRequest object for the DirectionRenderer request. */
   getDirectionRequestObj(itineraryInfo): google.maps.DirectionsRequest {
     let directionRequest: google.maps.DirectionsRequest = {};
     directionRequest.origin = itineraryInfo[0].filmAddress + ", " + Config.LOCATION;

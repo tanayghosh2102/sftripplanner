@@ -1,8 +1,10 @@
 import { faSignature, faFilm, faMapMarker, faMapMarked } from '@fortawesome/free-solid-svg-icons';
 
+/** Configuration file with all the constants used throughout the application. */
 export const Config = {
     WEB_LOCAL_STORAGE_KEY: 'FilmLocationItineraryPlanner',
     LOCATION: "San Francisco, CA",
+    DATASET_URL: "https://data.sfgov.org/resource/yitu-d5am.json",
     IT_STATUS_SAVED: "saved",
     IT_STATUS_EDIT: "edit",
     IT_STATUS_UNSAVED: "unsaved",

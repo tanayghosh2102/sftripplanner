@@ -8,12 +8,12 @@ import { Config } from './configuration';
   providedIn: 'root'
 })
 export class ItineraryService {
-  itinerary: Itinerary;
-  savedItineraries: Itinerary[];
-  lsItineraryObj: StorageItinerary;
+  itinerary: Itinerary; // Current itinerary object either new or for edit.
+  lsItineraryObj: StorageItinerary; // Web Storage object.
 
   constructor() { }
 
+  /** Checks to see if the Browser support Web Storage API. */
   storageAvailable(type:string):boolean {
     var storage;
     try {
@@ -39,10 +39,12 @@ export class ItineraryService {
     }
   }
 
+  /** Saves itinerary to the Web Storage. */
   saveItinerary() {
     let seen = [];
     if(this.storageAvailable('localStorage')) {
-      if(this.itinerary.itineraryStatus === Config.IT_STATUS_EDIT) {
+      if(this.itinerary.itineraryStatus === Config.IT_STATUS_EDIT) { // Check to see if the status of itinerary is edit.
+        // Set up the local storage object to be persisted.
         let d = new Date();
         d.toLocaleString('en-US', { timeZone: 'America/New_York' });
         this.itinerary.lastEdited = d;
@@ -55,7 +57,9 @@ export class ItineraryService {
       }
       this.itinerary.itineraryStatus = Config.IT_STATUS_SAVED;
       this.lsItineraryObj.itineraryList.push(this.itinerary);
+      // Save object to local storage.
       window.localStorage.setItem(Config.WEB_LOCAL_STORAGE_KEY, JSON.stringify(this.lsItineraryObj, 
+        // Serializing local storage object before persisting to avoid cyclic object conversion error.
         (result, val) => {
           if(val !== null && typeof val === 'object') {
             if(seen.indexOf(val) >= 0) {
@@ -71,6 +75,7 @@ export class ItineraryService {
     }
   }
 
+  /** Initialize the local storage object. */
   initItineraryLocalStorage() {
     if(this.storageAvailable('localStorage')) {
       this.lsItineraryObj = <StorageItinerary> JSON.parse(window.localStorage.getItem(Config.WEB_LOCAL_STORAGE_KEY));
@@ -86,9 +91,5 @@ export class ItineraryService {
     } else {
       alert("Local Storage NOT supported by browser. Itinerary will not be saved.");
     }
-  }
-
-  editItinerary(itinerary: Itinerary) {
-
   }
 }
