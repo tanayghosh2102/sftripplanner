@@ -5,7 +5,7 @@ import { Waypoint } from './waypoint';
 export class Itinerary {
     itineraryName: string = "";
     itineraryInfo: Waypoint[] = [];
-    itineraryStatus: string = Config.IT_STATUS_UNSAVED; // 'unsaved' | 'saved' | 'edit'
+    itineraryStatus: string = Config.IT_STATUS_UNSAVED; // 'unsaved' | 'saved' | 'edit' | 'delete'
     dateCreated: Date;
     lastEdited: Date;
 

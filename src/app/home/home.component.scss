@@ -4,6 +4,9 @@ $labelColor: #495057;
     display: flex;
     flex-flow: column;
     height: 100vh;
+    .form-check {
+        margin: 1vh 2vh;
+    }
     .header-layout {
         flex: 2;
         display: flex;

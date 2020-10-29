@@ -41,7 +41,6 @@ export class ItineraryService {
 
   /** Saves itinerary to the Web Storage. */
   saveItinerary() {
-    let seen = [];
     if(this.storageAvailable('localStorage')) {
       if(this.itinerary.itineraryStatus === Config.IT_STATUS_EDIT) { // Check to see if the status of itinerary is edit.
         // Set up the local storage object to be persisted.
@@ -57,22 +56,46 @@ export class ItineraryService {
       }
       this.itinerary.itineraryStatus = Config.IT_STATUS_SAVED;
       this.lsItineraryObj.itineraryList.push(this.itinerary);
-      // Save object to local storage.
-      window.localStorage.setItem(Config.WEB_LOCAL_STORAGE_KEY, JSON.stringify(this.lsItineraryObj, 
-        // Serializing local storage object before persisting to avoid cyclic object conversion error.
-        (result, val) => {
-          if(val !== null && typeof val === 'object') {
-            if(seen.indexOf(val) >= 0) {
-              return;
-            }
-            seen.push(val);
-          }
-          return val;
-        }));
-        alert(Config.LABELS.ITINERARY_SAVED);
+      this.persistToLocalStorage();
+      alert(Config.LABELS.ITINERARY_SAVED);
     } else {
       alert(Config.LABELS.ERROR.NO_STORAGE_SUPPORT);
     }
+  }
+
+  /** Deletes an Itinerary from the Web Storage Object. */
+  deleteItinerary() {
+    if(this.storageAvailable('localStorage')) {
+      if(this.itinerary.itineraryStatus === Config.IT_STATUS_DELETE) { // Check to see if the status of itinerary is edit.
+        for(let i = 0; i < this.lsItineraryObj.itineraryList.length; i++) {
+          if(this.itinerary.itineraryName === this.lsItineraryObj.itineraryList[i].itineraryName) {
+            this.lsItineraryObj.itineraryList.splice(i, 1);
+            break;
+          }
+        }
+      }
+      this.persistToLocalStorage();
+      alert(Config.LABELS.ITINERARY_DELETED);
+    } else {
+      alert(Config.LABELS.ERROR.NO_STORAGE_SUPPORT);
+    }
+  }
+
+  /** Persist data to localStorage. */
+  persistToLocalStorage() {
+    let seen = [];
+    // Save object to local storage.
+    window.localStorage.setItem(Config.WEB_LOCAL_STORAGE_KEY, JSON.stringify(this.lsItineraryObj, 
+      // Serializing local storage object before persisting to avoid cyclic object conversion error.
+      (result, val) => {
+        if(val !== null && typeof val === 'object') {
+          if(seen.indexOf(val) >= 0) {
+            return;
+          }
+        seen.push(val);
+      }
+      return val;
+    }));
   }
 
   /** Initialize the local storage object. */

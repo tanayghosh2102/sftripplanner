@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faEye, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faTrashAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { Itinerary } from '../itinerary';
 import { ItineraryService } from '../itinerary.service';
@@ -16,14 +16,15 @@ export class HomeComponent implements OnInit {
 
   // Instance variables
   lsItineraryList: Itinerary[]; // All the itineraries from the storage.
-  descriptions:{ // Array of descriptions recieved from the Config file used for labels on UI.
+  descriptions:{ // Array of descriptions recieved from the Config file used for labels on View.
     icon: IconDefinition ;
     description: string;
   }[];
   itineraryName: string; // Binded to the itinerary name input field.
-  headerLabel: string; // UI Label received from Config.
-  faEye: IconDefinition; // Icon definition for UI received from Config.
+  headerLabel: string; // View Label received from Config.
+  faIconDef: IconDefinition; // Icon definition for View received from Config.
   itineraryNameFrmCtrl: FormControl; // Form control for the itinerary name field.
+  deleteItineraryFrmCtrl: FormControl; // Form control for the delete itinerary checkbox.
   
   constructor(private itineraryService: ItineraryService, private router: Router) { }
 
@@ -32,12 +33,20 @@ export class HomeComponent implements OnInit {
     this.lsItineraryList = [];
     this.descriptions = Config.DESC;
     this.headerLabel = '';
-    this.faEye = faEye;
+    this.faIconDef = faEye;
     this.headerLabel = Config.LABELS.HEADER;
     this.itineraryService.itinerary = new Itinerary();
     this.lsItineraryList = this.itineraryService.lsItineraryObj.itineraryList;
     this.itineraryNameFrmCtrl = new FormControl();
+    this.deleteItineraryFrmCtrl = new FormControl();
     this.itineraryNameFrmCtrl.validator = Validators.required;
+    this.deleteItineraryFrmCtrl.valueChanges.subscribe(data => {
+      if(data) {
+        this.faIconDef = faTrashAlt;
+      } else {
+        this.faIconDef = faEye;
+      }
+    });
   }
 
   /** Creates a new instance of Itinerary and navigates to TripPlanner page */
@@ -53,7 +62,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  /** This funstion checks for an itinerary which has the same name as the entered input because the name of the itinerary should be unique as it acts as the primary key. */
+  /** This function checks for an itinerary which has the same name as the entered input because the name of the itinerary should be unique as it acts as the primary key. */
   checkForDupicateName() {
     let length = this.itineraryService.lsItineraryObj.itineraryList;
     for(let itin of this.itineraryService.lsItineraryObj.itineraryList) {
@@ -64,11 +73,17 @@ export class HomeComponent implements OnInit {
     return false;
   }
 
-  /** Navigates to trip planner page and edits an existing instance of Itinerary from the storage. */
-  editItinerary(itinerary: Itinerary) {
-    itinerary.itineraryStatus = Config.IT_STATUS_EDIT;
-    this.itineraryService.itinerary = itinerary;
-    this.router.navigate(['/itinerary']);
+  /** Deletes an itinerary in delete mode or in edit mode, navigates to trip planner page and edits an existing instance of Itinerary from the storage. */
+  editOrDeleteItinerary(itinerary: Itinerary) {
+    if(this.deleteItineraryFrmCtrl.value) {
+      itinerary.itineraryStatus = Config.IT_STATUS_DELETE;
+      this.itineraryService.itinerary = itinerary;
+      this.itineraryService.deleteItinerary();
+    } else {
+      itinerary.itineraryStatus = Config.IT_STATUS_EDIT;
+      this.itineraryService.itinerary = itinerary;
+      this.router.navigate(['/itinerary']);
+    }
   }
 
 }

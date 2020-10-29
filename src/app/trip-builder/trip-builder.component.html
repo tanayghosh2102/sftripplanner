@@ -28,7 +28,7 @@
     <div class="row standard-margin-1">
         <div class="col-md-12 location-layout" *ngIf="selectedFilmLocations.length > 0">
             <h4 class="fl-header-label">Film <em>{{ filmName }}</em> &nbsp;Location:</h4>
-            <div class="col-md-12 location-list">
+            <div class="col-md-12 location-list" [ngClass]="{ 'no-scrollbar' : selectedFilmLocations.length < 4 }">
                 <app-location-card (addWPEvent)="updateItineraryInfo($event)" [locations]="selectedFilmLocations"></app-location-card>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 <h4 class="fl-header-label">{{itineraryName}}:</h4>
             </div>
             <div class="col-md-12" *ngIf="itineraryInfo.length < 1"><i>No location added to the itinerary...</i></div>
-            <div class="col-md-12 itinerary-list" *ngIf="itineraryInfo.length > 0" [ngClass]="{ 'extended' : selectedFilmLocations.length === 0 }">
+            <div class="col-md-12 itinerary-list" *ngIf="itineraryInfo.length > 0" [ngClass]="{ 'extended' : selectedFilmLocations.length === 0, 'no-scrollbar' : itineraryInfo.length < 4 }">
                 <div cdkDropList class="itinerary-drop-list" (cdkDropListDropped)="drop($event)">
                     <div class="itinerary-box" *ngFor="let wp of itineraryInfo" cdkDrag>
                         <div class="itinerary-info">

@@ -4,12 +4,10 @@
 .location-list {
   max-height: 30vh;
   overflow-y: scroll;
-  scrollbar-width: none;
 }
 .itinerary-list {
   height: 30vh;
   overflow-y: scroll;
-  scrollbar-width: none;
   .itinerary-drop-list {
     width: 500px;
     max-width: 100%;

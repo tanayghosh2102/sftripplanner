@@ -8,6 +8,7 @@ export const Config = {
     IT_STATUS_SAVED: "saved",
     IT_STATUS_EDIT: "edit",
     IT_STATUS_UNSAVED: "unsaved",
+    IT_STATUS_DELETE: "delete",
     EVENTS: {
       FETCH_LOCATION: "fetch_location",
       ADD_WAYPOINT: "add_waypoint",
@@ -30,6 +31,7 @@ export const Config = {
     LABELS: {
       HEADER: 'Film Locations in San Francisco',
       ITINERARY_SAVED: 'Itinerary Saved.',
+      ITINERARY_DELETED: 'Itinerary Deleted.',
       ERROR: {
         ITINERARY_NAME_EMPTY: 'Enter a name for the itinerary.',
         NO_LOCATIONS_FOUND: 'No locations found in San Francisco.',

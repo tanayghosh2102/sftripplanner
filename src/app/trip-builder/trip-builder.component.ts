@@ -19,18 +19,18 @@ import { ItineraryService } from '../itinerary.service';
   styleUrls: ['./trip-builder.component.scss']
 })
 export class TripBuilderComponent implements OnInit {
-  filmName: string; // Bound to UI element to display selected Film name.
-  itineraryName: string; // Bound to the UI elemnt to display name of the itinerary
-  options: string[]; // Bound to UI to the auto complete field to display all the movies.
+  filmName: string; // Bound to View element to display selected Film name.
+  itineraryName: string; // Bound to the View elemnt to display name of the itinerary
+  options: string[]; // Bound to View to the auto complete field to display all the movies.
   films: string[]; // Used to maintain all the films names.
   filmsLocations: FilmLocation[]; // Used to store the data recieved from the URL.
-  selectedFilmLocations: Waypoint[]; // Bound to UI, used to store the locations of the film selected.
-  itineraryInfo: Waypoint[]; // Bound to UI, used to store the locations added to the itinerary.
+  selectedFilmLocations: Waypoint[]; // Bound to View, used to store the locations of the film selected.
+  itineraryInfo: Waypoint[]; // Bound to View, used to store the locations added to the itinerary.
   customFormCtrl: FormControl; // From control for the auto complete field.
-  faHome: IconDefinition; // Fontawesome Icon definition used in the UI
-  faSearch: IconDefinition; // Fontawesome Icon definition used in the UI
-  faTrashAlt: IconDefinition; // Fontawesome Icon definition used in the UI
-  faMapMarker: IconDefinition; // Fontawesome Icon definition used in the UI
+  faHome: IconDefinition; // Fontawesome Icon definition used in the View.
+  faSearch: IconDefinition; // Fontawesome Icon definition used in the View.
+  faTrashAlt: IconDefinition; // Fontawesome Icon definition used in the View.
+  faMapMarker: IconDefinition; // Fontawesome Icon definition used in the View.
 
   constructor(private filmLocationService:FilmLocationService, private mapService: MapService, private itineraryService:ItineraryService, private router: Router) { }
 
