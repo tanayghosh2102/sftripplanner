@@ -23,7 +23,6 @@ export class LocationCardComponent implements OnInit {
   /** Initializes all the instance variables and sets up all the data that is required for the Component. */
   ngOnInit(): void {
     this.faPlus = faPlus;
-    console.log(this.locations);
   }
 
   /** Clears animations of all markers available on the map. */

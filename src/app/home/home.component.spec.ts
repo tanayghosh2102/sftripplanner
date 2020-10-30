@@ -44,16 +44,6 @@ fdescribe('HomeComponent', () => {
         itineraryList: []
       }
     });
-
-    // router = TestBed.inject(Router);
-    // location = TestBed.inject(Location);
-    // itineraryService = TestBed.inject(ItineraryService);
-
-    // itineraryService.itinerary = new Itinerary();
-    // itineraryService.lsItineraryObj = {
-    //   lastUpdated: new Date(),
-    //   itineraryList: []
-    // }
   }));
 
   beforeEach(() => {
