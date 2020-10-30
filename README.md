@@ -1,14 +1,34 @@
-# TripPlanner
+# Itinerary Planner for Film Locations in SF
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
+An app that shows where movies have been filmed on a map in San Francisco. A trip planner that collects movie locations for the trip.
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The application needs [Node](https://nodejs.org/en/download/) and [Angular ClI](https://cli.angular.io/) to be installed in the system. *(Please refer the links attached for installation guidelines.)*
 
-## Code scaffolding
+ Markup : 1. Clone the repository.
+          2. Install dependencies.
+			```bash
+			npm install
+			```
+		  3. Start the application.
+			```bash
+			ng serve```
+		  4. Open the browser and navigate to `http://localhost:4200/`. The application should launch. 
+		  5. *The application needs Google Maps API key to run.* The process to generate an [API key](https://developers.google.com/maps/documentation/javascript/get-api-key) can be found in the link attched.
+		  6. Once you have the key, navigate to and open the `index.html` file under the directory `trip-planner/src/`. Search for the text `<ADD_KEY_HERE>` and replace it with the API key.
+		  
+## Libraries used
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Markup : 1. Angular 9.1.7
+		 2. Google Map API 3.40.1
+			1. Geocoding API
+			2. Maps JavaScript API
+			3. Directions API
+		 3. Angular Router 9.1.9
+		 4. Bootstrap 6.2.0
+		 5. Angular Material 9.2.4
+		 6. Karma 5.0.0 (Unit Testing)
 
 ## Build
 
@@ -17,11 +37,3 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
