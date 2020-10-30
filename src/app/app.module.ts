@@ -24,7 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     TripPlannerComponent,
     TripBuilderComponent,
-    LocationCardComponent,
+    LocationCardComponent
   ],
   imports: [
     BrowserModule,

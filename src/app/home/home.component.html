@@ -1,6 +1,6 @@
 <div class="container-fluid no-padding">
     <div class="home-layout">
-        <div class="header-layout"><h3>{{ headerLabel }}</h3></div>
+        <div class="header-layout" id="headerLabel"><h3>{{ headerLabel }}</h3></div>
         <div class="init-itinerary-layout">
             <div class="itinerary-description">
                 <div class="desc-layout" *ngFor="let desc of descriptions">
@@ -13,11 +13,11 @@
             <div class="init-itinerary">
                 <input type="text" class="form-control form-control-md" id="enterItineraryName" [formControl]="itineraryNameFrmCtrl" placeholder="Enter Itinerary Name">
                 <div class="build-itinerary">
-                    <button class="btn btn-outline-primary btn-theme-color" type="button" (click)="buildItinerary()">Build Itinerary</button>
+                    <button class="btn btn-outline-primary btn-theme-color" type="button" id="buildItineraryButton" (click)="buildItinerary()">Build Itinerary</button>
                 </div>
             </div>                   
         </div>
-        <h3 class="main-label">Saved Itineraries: <em>(Click on the cards to view/edit itinerary.)</em></h3>
+        <h3 class="main-label" id="savedItineraryLayout">Saved Itineraries: <em>(Click on the cards to view/edit itinerary.)</em></h3>
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [formControl]="deleteItineraryFrmCtrl">
             <label class="form-check-label" for="defaultCheck1">

@@ -6,7 +6,6 @@ import { MapService } from '../map.service';
 
 import { FilmLocation } from '../film-location';
 import { Config } from '../configuration';
-import { Itinerary } from '../itinerary';
 
 @Component({
   selector: 'app-trip-planner',
