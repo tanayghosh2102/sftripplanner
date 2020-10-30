@@ -38,3 +38,25 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## How to use the application
+
+ ### Enter an itinerary name
+ 
+ ![alt text](https://github.com/tanayghosh2102/sftripplanner/blob/master/src/assets/itinerary_name.PNG?raw=true)
+ 
+ ### Search a movie
+ 
+ ![alt text](https://github.com/tanayghosh2102/sftripplanner/blob/master/src/assets/search_movie.PNG?raw=true)
+ 
+ ### Add locations to itinerary
+ 
+ ![alt text](https://github.com/tanayghosh2102/sftripplanner/blob/master/src/assets/add_locations_to_itinerary.PNG?raw=true)
+ 
+ ### View itinerary on Map
+ 
+ ![alt text](https://github.com/tanayghosh2102/sftripplanner/blob/master/src/assets/view_itinerary_on_the_map.PNG?raw=true)
+ 
+ ### Itinerary can be viewed or edited from the home page
+ 
+ ![alt text](https://github.com/tanayghosh2102/sftripplanner/blob/master/src/assets/view_edit_saved_itineraries.PNG?raw=true)
