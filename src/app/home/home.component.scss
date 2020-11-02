@@ -12,12 +12,31 @@ $labelColor: #495057;
         display: flex;
         justify-content: center;
         background-color: var(--themeColor);
+        @media screen and (max-width: 768px) {
+            /* Here are some changes*/
+        }
+        
+        /* Mobile */
+        @media screen and (max-width: 380px) {
+            /* Here are some changes*/
+            flex: 4;
+        }
         h3 {
             margin: 0;
             padding: 0;
             align-self: center;
             color: white;
             font-size: 4vh;
+            /* Tablet*/
+            @media screen and (max-width: 768px) {
+                /* Here are some changes*/
+            }
+        
+            /* Mobile */
+            @media screen and (max-width: 380px) {
+                /* Here are some changes*/
+                font-size: 3vh;
+            }
         }
     }
     .init-itinerary-layout {
@@ -30,25 +49,83 @@ $labelColor: #495057;
             display: flex;
             flex-flow: column;
             justify-content: center;
+            @media screen and (max-width: 768px) {
+                /* Here are some changes*/
+            }
+            
+            /* Mobile */
+            @media screen and (max-width: 380px) {
+                /* Here are some changes*/
+                padding: 3vh 5vw;
+            }
             .build-itinerary {
                 text-align: center;
                 padding: 2vh;
+                @media screen and (max-width: 768px) {
+                    /* Here are some changes*/
+                }
+                
+                /* Mobile */
+                @media screen and (max-width: 380px) {
+                    /* Here are some changes*/
+                    padding: 2vh 0vw;
+                }
+                button {
+                    @media screen and (max-width: 768px) {
+                        /* Here are some changes*/
+                    }
+                    
+                    /* Mobile */
+                    @media screen and (max-width: 380px) {
+                        /* Here are some changes*/
+                        width: 100%;
+                    }
+                }
             }
         }
         .itinerary-description {
             flex: 2;
             display: flex;
             padding-top: 5vh;
+            @media screen and (max-width: 768px) {
+                /* Here are some changes*/
+            }
+        
+            /* Mobile */
+            @media screen and (max-width: 380px) {
+                /* Here are some changes*/
+                flex-flow: wrap;
+            }
             .desc-layout {
                 flex: 1;
                 display: flex;
                 justify-content: center;
+                @media screen and (max-width: 768px) {
+                    /* Here are some changes*/
+                }
+            
+                /* Mobile */
+                @media screen and (max-width: 380px) {
+                    /* Here are some changes*/
+                    flex: unset;
+                }
                 .desc-card {
                     display: flex;
                     flex-flow: column;
                     border-radius: 4px;
                     border: 1px solid $labelColor;
                     width: 23vw;
+                    @media screen and (max-width: 768px) {
+                        /* Here are some changes*/
+                    }
+                
+                    /* Mobile */
+                    @media screen and (max-width: 380px) {
+                        /* Here are some changes*/
+                        flex: unset;
+                        width: 40vw;
+                        margin: 1vh 5vw;
+                    }
                     .desc-card-title {
                         flex: 1;
                         padding: 2vh;
@@ -67,6 +144,16 @@ $labelColor: #495057;
                         align-self: center;
                         color: $labelColor;
                         padding: 2vh;
+                        text-align: center;
+                        @media screen and (max-width: 768px) {
+                            /* Here are some changes*/
+                        }
+                    
+                        /* Mobile */
+                        @media screen and (max-width: 380px) {
+                            /* Here are some changes*/
+                            font-size: 2.4vh;
+                        }
                     }
                 }
             }
@@ -76,6 +163,15 @@ $labelColor: #495057;
         font-size: 3vh;
         font-weight: 400;
         margin: 0 1vw;
+        @media screen and (max-width: 768px) {
+            /* Here are some changes*/
+        }
+        
+        /* Mobile */
+        @media screen and (max-width: 380px) {
+            /* Here are some changes*/
+            font-size: 2.3vh;
+        }
         em {
             font-weight: 100;
         }
@@ -85,6 +181,15 @@ $labelColor: #495057;
         overflow-y: scroll;
         display: flex;
         flex-flow: wrap;
+        @media screen and (max-width: 768px) {
+            /* Here are some changes*/
+        }
+        
+        /* Mobile */
+        @media screen and (max-width: 380px) {
+            /* Here are some changes*/
+            overflow-y: unset;
+        }
         em {
             margin: 2vh;
         }
@@ -97,6 +202,16 @@ $labelColor: #495057;
             display: flex;
             color: $labelColor;
             cursor: pointer;
+            @media screen and (max-width: 768px) {
+                /* Here are some changes*/
+            }
+            
+            /* Mobile */
+            @media screen and (max-width: 380px) {
+                /* Here are some changes*/
+                width: 100vw;
+                height: 8vh;
+            }
             .itinerary-card-action {
                 flex: 1;
                 align-self: center;
@@ -105,14 +220,36 @@ $labelColor: #495057;
             .itinerary-card-desc {
                 flex: 5;
                 display: flex;
-                padding: 2vh;
+                padding: 0vh 2vh;
                 flex-flow: column;
+                @media screen and (max-width: 768px) {
+                    /* Here are some changes*/
+                }
+                
+                /* Mobile */
+                @media screen and (max-width: 380px) {
+                    /* Here are some changes*/
+                    flex: 4;
+                }
                 .itinerary-card-title {
                     flex: 1;
                     flex-flow: column-reverse;
                     font-size: 3vh;
                     font-weight: 500;
                     display: flex;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    width: 13vw;
+                    @media screen and (max-width: 768px) {
+                        /* Here are some changes*/
+                    }
+                    
+                    /* Mobile */
+                    @media screen and (max-width: 380px) {
+                        /* Here are some changes*/
+                        width: 64vw;
+                    }
                 }
             }
             .itinerary-card-body {

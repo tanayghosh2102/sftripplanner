@@ -16,6 +16,7 @@ import { LocationCardComponent } from './location-card/location-card.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StringTruncatePipe } from './string-truncate.pipe';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     TripPlannerComponent,
     TripBuilderComponent,
-    LocationCardComponent
+    LocationCardComponent,
+    StringTruncatePipe
   ],
   imports: [
     BrowserModule,
