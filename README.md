@@ -4,7 +4,7 @@ An app that shows where movies have been filmed on a map in San Francisco. A tri
 
 ## Installation
 
- 0. Install [Node](https://nodejs.org/en/download/) and [Angular ClI](https://cli.angular.io/).
+ 0. Install [Node](https://nodejs.org/en/download/) and [Angular CLI](https://cli.angular.io/).
  1. Clone the repository.
  2. Install dependencies.
 
